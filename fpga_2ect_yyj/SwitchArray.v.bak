@@ -1,0 +1,114 @@
+//**************************************************************//
+//**************************************************************//
+//Project Name: Novel ECT Hardware Design
+//
+//Author: Yunjie Yang
+//Create  Date: 16:16 2014-11-15
+//Design  Name: ECTNew
+//Module  Name: HoldZeroStrategy
+//Target Devices: EP3C25F324C8
+//Tool versions: 13.1
+//Descriptions: This module realizes the holding zero strategy
+//Revision:
+//**************************************************************//
+//**************************************************************//
+
+module SwitchArray
+(   
+	 Sync,
+	 DDSIn,
+	 EnExcit,
+	 DDSOut,
+	 switchData
+);
+    //Parameters
+	 parameter SamplePeriod = 8'd9;  //1 zero, 1 idle, 4 sample, 1 finish (idle)
+	 parameter Zero = 14'b10000000000000;
+	 
+	 //Define
+
+	 
+	 //Interface
+	 input Sync;                    //Sync Signal for Holding Zero Strategy
+	 input EnExcit;
+	 input [13:0] DDSIn;
+	 
+	 output [13:0] DDSOut;    
+	 
+	 reg SinOutSel;                //Original code
+	 reg [7:0] periodCnt;
+	 
+	 output reg [63:0] switchData;
+	 reg flag;
+	 
+	 initial begin
+		periodCnt = 8'd0;
+		SinOutSel = 0;
+		
+		switchData = 64'hAAAAAAAAAAAAAAAA;
+		flag = 0;
+	 end
+	 
+	 //Below is the code for holding zero strategy
+	 /*
+	 assign DDSOut = SinOutSel? DDSIn : Zero;
+	 always @ (posedge Sync)
+		if (EnExcit) begin
+			if (periodCnt == 8'd0) begin
+				SinOutSel <= 0;
+			end
+			else begin
+				SinOutSel <= 1;
+			end
+			
+			//One switch data finished
+			if (periodCnt == SamplePeriod) begin
+				periodCnt <= 8'd0;
+			end
+			else begin
+				periodCnt <= periodCnt + 8'd1;
+			end
+		end
+		else begin
+			SinOutSel <= 0;
+			periodCnt <= 8'd0;
+		end
+	 */
+		
+	 assign DDSOut = DDSIn;
+	
+	 always @ (posedge Sync)
+		if (EnExcit) begin
+			//One switch data finished
+			if (periodCnt == SamplePeriod) begin
+				periodCnt <= 8'd0;
+			end
+			else begin
+				periodCnt <= periodCnt + 8'd1;
+			end
+		end
+		else begin
+			SinOutSel <= 0;
+			periodCnt <= 8'd0;
+	end	
+		
+	//Test the transition procedure when switches	
+	always @ (posedge Sync)
+		if (EnExcit) begin
+			if (periodCnt == 8'd0) begin
+				if (flag == 0) begin
+					switchData <= 64'hAAAAAAAAAAAAAAA3;
+					flag <= ~flag;
+				end
+				else if (flag == 1) begin
+					switchData <= 64'hAAAAAAAAAAAAAAAA;
+					flag <= ~flag;
+				end
+			end
+		end
+		else begin			
+			flag <= 0;
+			switchData <= 64'hAAAAAAAAAAAAAAAA;
+		end
+
+endmodule

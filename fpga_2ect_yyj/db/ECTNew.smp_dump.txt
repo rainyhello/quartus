@@ -1,0 +1,44 @@
+
+State Machine - |ECTNew|DigitalDemodulation:b2v_inst9|DemodCtrl:b2v_inst1|Stat
+Name Stat.0000 Stat.0010 Stat.0001 
+Stat.0000 0 0 0 
+Stat.0001 1 0 1 
+Stat.0010 1 1 0 
+
+State Machine - |ECTNew|DigitalDemodulation:b2v_inst7|DemodCtrl:b2v_inst1|Stat
+Name Stat.0000 Stat.0010 Stat.0001 
+Stat.0000 0 0 0 
+Stat.0001 1 0 1 
+Stat.0010 1 1 0 
+
+State Machine - |ECTNew|USBCtrl:b2v_inst15|StatR
+Name StatR.RDONE StatR.READ StatR.0001 StatR.0000 
+StatR.0000 0 0 0 0 
+StatR.0001 0 0 1 1 
+StatR.READ 0 1 0 1 
+StatR.RDONE 1 0 0 1 
+
+State Machine - |ECTNew|USBCtrl:b2v_inst15|StatW
+Name StatW.WDONE StatW.WRITE StatW.0011 StatW.0010 StatW.0001 StatW.0000 
+StatW.0000 0 0 0 0 0 0 
+StatW.0001 0 0 0 0 1 1 
+StatW.0010 0 0 0 1 0 1 
+StatW.0011 0 0 1 0 0 1 
+StatW.WRITE 0 1 0 0 0 1 
+StatW.WDONE 1 0 0 0 0 1 
+
+State Machine - |ECTNew|SamplingCtrl:b2v_inst13|Stat1
+Name Stat1.0001 
+Stat1.0000 0 
+Stat1.0001 1 
+
+State Machine - |ECTNew|SamplingCtrl:b2v_inst13|Stat
+Name Stat.0000 Stat.0010 Stat.0001 
+Stat.0000 0 0 0 
+Stat.0001 1 0 1 
+Stat.0010 1 1 0 
+
+State Machine - |ECTNew|SysIndicators:b2v_inst|Stat
+Name Stat.0001 
+Stat.0000 0 
+Stat.0001 1 

@@ -1,0 +1,76 @@
+`timescale 1ns/1ps
+//Author:Y
+//Create  Date: 16:16 2011-3-16
+//Design  Name: ECT
+//Module  Name: SystemInitial
+//Project Name: ECTboard
+//Target Devices:
+//Tool versions:
+//Descriptions:
+//Revision:
+
+module SystemInit
+(
+    clk, trig_out,KEY_0
+);
+    parameter trig_prd = 5;
+    
+    input clk, KEY_0;
+    output trig_out;
+    
+    reg[15:0] cnt0, cnt1;
+    reg[4:0] stat;
+    reg trig_out;
+    
+    always @( posedge clk or negedge KEY_0)    // asynchronous operation
+    begin
+        if( KEY_0==0 )       // one delta t ready
+        begin
+            cnt0 <= 0;
+            cnt1 <= 0;
+            stat <= 0;
+        end
+        
+        else
+        begin
+            case( stat )
+            0:
+            begin
+                if( cnt1 >= trig_prd )    // count 40000 X trig_prd X 25 ns = 0.5 s
+                begin
+                    stat <= 5;
+                    
+                end
+                else
+                begin
+                    trig_out <= 1;
+                    if( cnt0 >= 400 )  
+                    begin
+                        cnt0 <= 0;
+                        cnt1 <= cnt1 + 1;
+                    end
+                    else    cnt0 <= cnt0 + 1;
+                end
+            end
+            3:
+            begin
+                cnt0 <= 0;
+                cnt1 <= 0;
+                stat <= 0;
+            end
+            5:
+            begin
+            trig_out <= 0;
+            stat<=6;
+            end
+            9:
+            begin
+            trig_out <=1;
+            stat <= 9;       // stay here never trig again, except restar!
+            end
+            
+            default:    stat <= stat + 1;
+            endcase
+        end
+    end 
+endmodule

@@ -1,0 +1,231 @@
+`timescale 1ns/1ps
+//**************************************************************//
+//**************************************************************//
+//Project Name: Novel ECT Hardware Design
+//
+//Author: Yunjie Yang
+//Create  Date: 16:16 2014-11-15
+//Design  Name: ECTNew
+//Module  Name: USBCtrl
+//Target Devices: EP3C25F324C8
+//Tool versions: 13.1
+//Descriptions: This module realizes the Slave FIFO methods of USB2.0.
+//Revision:
+//**************************************************************//
+//**************************************************************//
+
+module USBTest
+(
+    CLK, RST, 
+	 //Internal ctrl signal
+	 WEnable, WDone, Send, WCnt,           //Number to write
+	 REnable, RReady, Receive, RCnt,        //Number to readt
+	 //USB Slave FIFO Signal
+	 USBDat,                               //Bidirection 
+	 IFCLK,                                //Clk from FPGA, 5 - 48MHz
+	 FIFOEmp, FIFOFull, FIFOPf, USBFlagD,  //Flags from Cypress
+	 USBInt0, USBSloe, USBSlrd, USBSlwr,   //Output
+	 FIFOAdr, PKTEND                       //Output 2 4 6 8 and Packet end signal
+	 
+);
+    //Parameters
+	 
+	 
+	 //Define
+	 `define EP2  2'b00
+	 `define EP4  2'b01
+	 `define EP6  2'b10
+	 `define EP8  2'b11
+	 `define IDLE 4'd0
+	 `define DONE 4'd5
+	 
+	 
+	 //FIFO Interface
+	 input CLK, RST;
+	 input WEnable, REnable;
+	 output reg WDone, RReady;
+	 input [15:0] Send;
+	 output reg [15:0] Receive;
+	 
+	 input IFCLK;
+	 input FIFOEmp;                       //EP2 OUT
+	 input FIFOFull;                      //EP6 IN
+	 input FIFOPf, USBFlagD;
+	 
+	 inout [15:0] USBDat;
+	 output reg [1:0] FIFOAdr;            //Endpoint 2 4 6 8
+	 output reg USBSlrd, USBSlwr, USBSloe;
+	 output reg USBInt0;
+	 output reg PKTEND;
+	 
+	 input [9:0] WCnt;                    //Write numbers for external logic, max 1023 numbers. Number to Write!!!
+	 reg [9:0] WCntIn;                    //Number already written
+	 reg [0:0] WCntTemp;
+	 
+	 input [9:0] RCnt;                    //Read numbers for external logic, max 1023 numbers. Number to Read!!!
+	 reg [9:0] RCntIn;                    //Number already read
+	 reg [9:0] RCntTemp; 
+	 
+	 
+	 //Internal Variables
+	 reg [3:0] StatW;
+	 reg [3:0] StatR;
+	 reg [15:0] UDatOut;                  //FPGA->USB                  
+	 
+	 assign USBDat = USBSlwr? 16'bZ: UDatOut;
+	 
+	 initial begin
+		USBInt0 = 1;
+		FIFOAdr = `EP2;
+	 end
+	 
+	 always @ (*)
+		 if (WEnable) begin
+				FIFOAdr <= `EP6;
+		 end
+		 else if (REnable) begin
+				FIFOAdr <= `EP2;
+		 end
+		 else begin
+				FIFOAdr <= `EP2;
+		 end
+	 
+	 //Sychronous Slave FIFO Writes, EP6 as IN
+	 always @ (posedge IFCLK or negedge RST)
+	 
+		if (!RST) begin
+			UDatOut <=  16'd0;
+			USBSlwr <= 1;
+			WCntIn <= 0;
+		   WCntTemp <= 0;	
+			WDone <= 0;
+			PKTEND <= 1;
+			
+			StatW <= 4'd0;
+		end
+		else begin
+			case (StatW)
+			`IDLE: begin
+					 if (WEnable) begin
+						 StatW <= 4'd1;
+						 USBSlwr <= 1;
+						 WCntIn <= 0;
+						 WCntTemp <= WCnt;
+						 WDone <= 0;
+						 PKTEND <= 1;
+						end
+					 else begin
+						 StatW <= StatW;
+						 WDone <= 0;
+						 WCntTemp <= 0;
+						 PKTEND <= 1;
+					 end
+				end
+			1: begin
+					//FIFOAdr <= `EP6;    //Point to IN FIFO
+					StatW <= 4'd2;
+				end
+			2: begin
+					if (FIFOFull) begin //Low effective. Not full
+						StatW <= 4'd3;
+					end
+					else begin          //FIFO Full, wait
+						StatW <= StatW;
+					end
+				end
+			3: begin
+					UDatOut <= Send;
+					USBSlwr <= 0;
+					WCntIn <= WCntIn + 10'd1;
+					StatW <= 4'd4;
+				end
+			4: begin
+					USBSlwr <= 1;
+					if (WCntIn < WCntTemp) begin        //If more data to send
+						StatW <= 4'd2;
+					end
+					else begin
+					   if (WCntTemp < 255) begin       //Less than 256 words, mannual packet;
+							PKTEND <= 0;
+						end
+						StatW <= `DONE;
+						WDone <= 1;
+					end
+				end
+			`DONE: begin
+						StatW <= `IDLE;
+					 end
+					 
+			 default: StatW <= `IDLE;
+			 endcase
+		end
+		
+	 //Sychronous Slave FIFO Read, EP2 as OUT ENDpoint
+	 always @ (posedge IFCLK or negedge RST)
+	 
+		if (!RST) begin
+			Receive <=  16'd0;
+			USBSlrd <= 1;
+			USBSloe <= 1;
+			RCntIn <= 0;
+		   RCntTemp <= 0;	
+			RReady <= 0;
+			
+			StatR <= 4'd0;
+		end
+		else begin
+			case (StatR)						
+			`IDLE: begin
+					 if (REnable) begin    //Read Event lauched
+						 StatR <= 4'd1;
+						 USBSlrd <= 1;
+						 USBSloe <= 1;
+						 RCntIn <= 0;
+	                RCntTemp <= RCnt;					 
+						 RReady <= 0;
+						end
+					 else begin
+						 StatR <= StatR;
+						 RReady <= 0;
+						 RCntTemp <= 0;
+					 end
+			   end
+			1: begin
+					//FIFOAdr <= `EP2;      //Point to OUT FIFO
+					StatR <= 4'd2;
+				end
+			2: begin
+					USBSloe <= 0;         //Assert SLOE
+					if (FIFOEmp) begin    //Low effective. FIFO not empty
+						StatR <= 4'd3;
+					end
+					else begin
+						StatR <= StatR;
+					end
+				end
+			3: begin
+					Receive <= USBDat;
+					RCntIn <= RCntIn + 10'd1;
+					USBSlrd <= 0;
+					StatR <= 4'd4;
+				end
+			4: begin
+					USBSlrd <= 1;
+					USBSloe <= 1;
+					if (RCntIn < RCntTemp) begin        //If more data to Read
+						StatR <= 4'd2;
+					end
+					else begin
+						StatR <= `DONE;
+						RReady <= 1;
+					end
+				end
+			`DONE: begin
+						StatR <= `IDLE;
+					 end
+			
+			 default: StatR <= `IDLE;
+			 endcase
+		end		
+						
+endmodule

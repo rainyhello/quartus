@@ -1,0 +1,120 @@
+`timescale 1ns/1ps
+//**************************************************************//
+//**************************************************************//
+//Project Name: Novel ECT Hardware Design
+//
+//Author: Yunjie Yang
+//Create  Date: 16:16 2014-11-15
+//Design  Name: ECTNew
+//Module  Name: ADSample
+//Target Devices: EP3C25F324C8
+//Tool versions: 13.1
+//Descriptions: Digital Demodulation Control.
+//Revision:
+//**************************************************************//
+//**************************************************************//
+
+module DemodCtrl
+(
+    CLK, RST, Enable, OTR, DataIn, DataOut, OverFlow, DemodReady,
+	 Aclr, ClkMultEn,
+	 SinRef
+);
+    //Parameters
+	 parameter SampNum = 200;  //Sampling numbers for digital demodulation, refer to Cnt to check the upper bound
+	 
+	 //Define
+	 
+	 
+	 //Interface
+	 input CLK, RST, Enable;
+	 input OTR;                   //Overflow flag
+	 input [13:0] DataIn;         //AD9240 sampling data
+    output reg [13:0] DataOut;   //Data for digital demodulation
+	 output reg OverFlow;         //Indicator for PGA module
+	 output reg DemodReady;       //1 round demodulation done, high effective 
+
+	 output reg Aclr;             //Asychronous clear for MAC and Mult ADD
+	 output reg ClkMultEn;        //Clock enable
+	 
+	 input [13:0] SinRef;
+	 	 
+	 //Internal variables
+	 reg [3:0] Stat;              //State machine state
+	 reg [10:0] Cnt;              //Counting for sampling, support maximum sampling number for one demod: 2047
+	 reg [7:0] Cnt1;              //Counting for idle cycles waiting for the result
+    
+	 always @ (posedge CLK or negedge RST)
+	 
+		if (!RST) begin
+			DataOut <= 0;
+			OverFlow <= 0;
+			DemodReady <= 0;
+			Aclr <= 1;
+			ClkMultEn <= 0;
+			
+			Cnt <= 0;
+			Cnt1 <= 0;
+			Stat <= 0;
+			end
+		else if (Enable) begin
+			case (Stat)
+			0: begin                     //Prepare to do MAC
+					DataOut <= 0;
+					OverFlow <= 0;
+					Aclr <= 0;             //Disable the clear for all the internal modules
+					ClkMultEn <= 1;
+					DemodReady <= 0;       //Clear the ready signal
+					
+					Cnt <= 0;
+					Cnt1 <= 0;
+					Stat <= 1;      
+				end
+			1: begin
+					if (SinRef == 8192) begin
+						Stat <= 2;
+					end
+					else begin
+						Stat <= 1;
+					end
+				end
+			2: begin
+					if (Cnt == SampNum) begin
+						DataOut <= 0;
+						OverFlow <= 0;
+						Cnt <= 0;
+						Stat <= 3;
+					end
+					else begin
+						Cnt <= Cnt + 1;
+						DataOut <= DataIn;
+						OverFlow <= OTR;
+						Stat <= 2;
+					end
+				end
+			3: begin
+					if (Cnt1 == 8) begin   //Waiting for 5 clock cycles to get the final result
+						DemodReady <= 1;
+						Stat <= 3;
+					end
+					else begin
+						Cnt1 <= Cnt1 + 1;
+					end
+				end
+				
+			default: Stat <= 0;
+			endcase
+		end
+		else if (~Enable) begin
+			DemodReady <= 0;
+			DataOut <= 0;
+			OverFlow <= 0;
+			Cnt <= 0;
+			Cnt1 <= 0;
+			Aclr <= 1;
+			ClkMultEn <= 0;
+			Stat <= 0;
+		end
+			
+endmodule
+	 

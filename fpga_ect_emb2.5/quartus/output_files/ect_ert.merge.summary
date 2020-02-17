@@ -1,0 +1,14 @@
+Partition Merge Status : Successful - Sat Dec 07 15:17:38 2019
+Quartus II 64-Bit Version : 13.1.0 Build 162 10/23/2013 SJ Full Version
+Revision Name : ect_ert
+Top-level Entity Name : ect_ert
+Family : Cyclone III
+Total logic elements : 8,258 / 24,624 ( 34 % )
+    Total combinational functions : 5,240 / 24,624 ( 21 % )
+    Dedicated logic registers : 3,835 / 24,624 ( 16 % )
+Total registers : 3835
+Total pins : 58 / 216 ( 27 % )
+Total virtual pins : 0
+Total memory bits : 5,376 / 608,256 ( < 1 % )
+Embedded Multiplier 9-bit elements : 60 / 132 ( 45 % )
+Total PLLs : 1 / 4 ( 25 % )

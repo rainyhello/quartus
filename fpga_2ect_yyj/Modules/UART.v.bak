@@ -1,0 +1,244 @@
+`timescale 1ns/1ps
+//Author:Y
+//Create  Date: 16:16 2011-3-16
+//Design  Name: ECT
+//Module  Name: DataCom
+//Project Name: ECTboard
+//Target Devices:
+//Tool versions:
+//Descriptions:
+//Revision:
+
+
+//UART SpeedSelect
+module UARTSpeedSelect
+(
+	clksys, rst_n, bpsStart, clkbps
+);
+
+	input clksys;
+	input rst_n;
+	input bpsStart;
+
+	output clkbps;
+
+	/*
+			Using 50Mhz Crystal
+			1s/bps/20ns=5208.33333~5208
+			parameter          bps9600     = 5208, 2604
+									 bps19200    = 2604, 1302
+									 bps38400    = 1302, 652
+									 bps57600    = 868,  434
+									 bps115200   = 434;  217 
+		    Using 40Mhz Crystal
+		    1s/19200/25ns  =2083  1041
+		    1s/38400/25ns  =1042  521  
+		    1s/57600/25ns  =694   347
+          1s/115200/25ns =347   174  			 
+	*/
+
+	`define BPS_PAR  434 //bps115200
+	`define BPS_PAR2 217 //bps115200
+
+	reg [12:0] cnt;
+	reg clk_bps_r;
+
+	reg[2:0] uart_ctrl;
+
+	always @ (posedge clksys or negedge rst_n)
+
+		if (!rst_n) cnt <= 13'd0;
+		else if (cnt == `BPS_PAR || !bpsStart) cnt <= 13'd0;
+		else cnt <= cnt + 1'b1;
+
+	always @ (posedge clksys or negedge rst_n)
+
+		if (!rst_n) clk_bps_r <= 1'b0;
+		else if (cnt == `BPS_PAR2) clk_bps_r <= 1'b1;
+		else clk_bps_r <= 1'b0;
+		
+		assign clkbps = clk_bps_r;
+		
+endmodule
+//UART Send
+module UARTSend(clksys,rst_n,dataLock,dataIn,available,clkbps,bpsStart,UARTtx);
+	input clksys,rst_n,dataLock,clkbps;
+	input[7:0] dataIn;
+	output available,bpsStart,UARTtx;
+	
+	reg available;
+	
+	reg [7:0] dataBuffer;
+	reg bps_start_r;
+	reg [3:0] num;
+	reg [3:0] stat;
+	reg preDataLock;
+
+	always @ (posedge clksys or negedge rst_n)
+		if(!rst_n) begin
+				bps_start_r <= 1'bz;
+				available <= 1'b1;
+				dataBuffer <= 8'd0;
+				preDataLock <= 0;
+				stat <= 0;
+			end
+		else begin
+				preDataLock <= dataLock;
+				case(stat)
+					0:
+						if (preDataLock==0&&dataLock==1) begin
+									bps_start_r <= 1'b1;
+									dataBuffer <= dataIn;	
+									available <= 1'b0;
+									stat <= stat + 1;
+						end		
+					1:
+						if (num==4'd11) begin
+									bps_start_r <= 1'b0;
+									available <= 1'b1;
+									stat <= 0;
+						end
+					default: stat <= 0;
+				endcase
+			end
+
+	assign bpsStart = bps_start_r;
+
+	reg UARTtx_temp;
+
+	always @ (posedge clksys or negedge rst_n)
+		if(!rst_n) begin
+				num <= 4'd0;
+				UARTtx_temp <= 1'b1;
+			end
+		else if(!available) begin
+				if(clkbps)	begin
+						num <= num+1'b1;
+						case (num)
+							4'd0: UARTtx_temp <= 1'b0; 	   
+							4'd1: UARTtx_temp <= dataBuffer[0];	//bit0
+							4'd2: UARTtx_temp <= dataBuffer[1];	//bit1
+							4'd3: UARTtx_temp <= dataBuffer[2];	//bit2
+							4'd4: UARTtx_temp <= dataBuffer[3];	//bit3
+							4'd5: UARTtx_temp <= dataBuffer[4];	//bit4
+							4'd6: UARTtx_temp <= dataBuffer[5];	//bit5
+							4'd7: UARTtx_temp <= dataBuffer[6];	//bit6
+							4'd8: UARTtx_temp <= dataBuffer[7];	//bit7
+							4'd9: UARTtx_temp <= 1'b1;	  
+							default: UARTtx_temp <= 1'b1;
+							endcase
+					end
+				else if(num == 4'd11) num <= 4'd0;	
+			end
+
+	assign UARTtx = UARTtx_temp;
+
+endmodule
+
+//UART Recieve
+module UARTRecieve
+(
+	clksys, rst_n, clkbps, UARTrx, bpsStart, dataOut, dataReady
+);
+	input clksys;
+	input rst_n;
+	input UARTrx;
+	input clkbps;
+	output bpsStart;
+	output [7:0] dataOut;
+	output dataReady;
+
+	reg dataReady;
+	reg rs232_rx0, rs232_rx1, rs232_rx2, rs232_rx3;
+
+	wire neg_rs232_rx;
+
+	always @ (posedge clksys or negedge rst_n)
+		if (!rst_n) begin
+			rs232_rx0 <= 1'b0;
+			rs232_rx1 <= 1'b0;
+			rs232_rx2 <= 1'b0;
+			rs232_rx3 <= 1'b0;
+			end
+		else begin
+			rs232_rx0 <= UARTrx;
+			rs232_rx1 <= rs232_rx0;
+			rs232_rx2 <= rs232_rx1;
+			rs232_rx3 <= rs232_rx2;
+			end
+
+	assign neg_rs232_rx = rs232_rx3 & rs232_rx2 & ~rs232_rx1 & ~rs232_rx0;
+
+	reg bps_start_r;
+	reg [3:0] num;
+	reg rx_int;
+	reg [3:0] stat;
+
+	always @ (posedge clksys or negedge rst_n)
+		if (!rst_n) begin
+			bps_start_r <= 1'bz;
+			dataReady <= 1'b0;
+			stat <= 0;
+			end
+		else begin
+			case (stat)
+				0:
+					if (neg_rs232_rx) begin
+							bps_start_r <= 1'b1;
+							dataReady <= 0;
+							rx_int <= 1'b1;
+							stat <= stat + 1;
+						end
+				1:
+					if (num == 4'd12) begin
+							bps_start_r <= 1'b0;
+							rx_int <= 1'b0;
+							dataReady <= 1;
+							stat <= stat + 1;
+						end
+				5:
+					begin
+						dataReady <= 0;
+						stat <= 0;
+					end
+				default: stat <= 0;
+			endcase
+		end
+
+	assign bpsStart = bps_start_r;
+
+	reg [7:0] rx_data_r;
+
+	reg [7:0] rx_temp_data;
+
+	always @ (posedge clksys or negedge rst_n)
+		if (!rst_n) begin
+				rx_temp_data <= 8'd0;
+				num <= 4'd0;
+				rx_data_r <= 8'd0;
+			end
+		else if (rx_int) begin//start to recieve data
+				if (clkbps) begin
+						num <= num + 1'b1;
+						case (num)
+							4'd1: rx_temp_data[0] <= UARTrx;
+							4'd2: rx_temp_data[1] <= UARTrx;
+							4'd3: rx_temp_data[2] <= UARTrx;
+							4'd4: rx_temp_data[3] <= UARTrx;
+							4'd5: rx_temp_data[4] <= UARTrx;
+							4'd6: rx_temp_data[5] <= UARTrx;
+							4'd7: rx_temp_data[6] <= UARTrx;
+							4'd8: rx_temp_data[7] <= UARTrx;
+							default: ;
+						 endcase
+						end
+				 
+				 else if (num == 4'd12) begin
+						num <= 4'd0;
+						rx_data_r <= rx_temp_data;
+						end		
+		end
+
+	assign dataOut = rx_data_r;
+										
+endmodule

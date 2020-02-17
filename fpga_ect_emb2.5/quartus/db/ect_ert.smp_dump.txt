@@ -1,0 +1,11 @@
+
+State Machine - |ect_ert|demod_ctl:ect_demod_ctl|pc_cmd
+Name pc_cmd.0111 pc_cmd.0001 pc_cmd.0101 pc_cmd.0100 pc_cmd.0011 pc_cmd.0010 pc_cmd.0110 pc_cmd.1111 
+pc_cmd.0110 0 0 0 0 0 0 0 0 
+pc_cmd.0010 0 0 0 0 0 1 1 0 
+pc_cmd.0011 0 0 0 0 1 0 1 0 
+pc_cmd.0100 0 0 0 1 0 0 1 0 
+pc_cmd.0101 0 0 1 0 0 0 1 0 
+pc_cmd.0001 0 1 0 0 0 0 1 0 
+pc_cmd.0111 1 0 0 0 0 0 1 0 
+pc_cmd.1111 0 0 0 0 0 0 1 1 

@@ -1,0 +1,394 @@
+ -- Copyright (C) 1991-2013 Altera Corporation
+ -- Your use of Altera Corporation's design tools, logic functions 
+ -- and other software and tools, and its AMPP partner logic 
+ -- functions, and any output files from any of the foregoing 
+ -- (including device programming or simulation files), and any 
+ -- associated documentation or information are expressly subject 
+ -- to the terms and conditions of the Altera Program License 
+ -- Subscription Agreement, Altera MegaCore Function License 
+ -- Agreement, or other applicable license agreement, including, 
+ -- without limitation, that your use is for the sole purpose of 
+ -- programming logic devices manufactured by Altera and sold by 
+ -- Altera or its authorized distributors.  Please refer to the 
+ -- applicable agreement for further details.
+ -- 
+ -- This is a Quartus II output file. It is for reporting purposes only, and is
+ -- not intended for use as a Quartus II input file. This file cannot be used
+ -- to make Quartus II pin assignments - for instructions on how to make pin
+ -- assignments, please see Quartus II help.
+ ---------------------------------------------------------------------------------
+
+
+
+ ---------------------------------------------------------------------------------
+ -- NC            : No Connect. This pin has no internal connection to the device.
+ -- DNU           : Do Not Use. This pin MUST NOT be connected.
+ -- VCCINT        : Dedicated power pin, which MUST be connected to VCC  (1.2V).
+ -- VCCIO         : Dedicated power pin, which MUST be connected to VCC
+ --                 of its bank.
+ --					Bank 1:		2.5V
+ --					Bank 2:		2.5V
+ --					Bank 3:		2.5V
+ --					Bank 4:		2.5V
+ --					Bank 5:		2.5V
+ --					Bank 6:		2.5V
+ --					Bank 7:		2.5V
+ --					Bank 8:		2.5V
+ -- GND           : Dedicated ground pin. Dedicated GND pins MUST be connected to GND.
+ --					It can also be used to report unused dedicated pins. The connection
+ --					on the board for unused dedicated pins depends on whether this will
+ --					be used in a future design. One example is device migration. When
+ --					using device migration, refer to the device pin-tables. If it is a
+ --					GND pin in the pin table or if it will not be used in a future design
+ --					for another purpose the it MUST be connected to GND. If it is an unused
+ --					dedicated pin, then it can be connected to a valid signal on the board
+ --					(low, high, or toggling) if that signal is required for a different
+ --					revision of the design.
+ -- GND+          : Unused input pin. It can also be used to report unused dual-purpose pins.
+ --					This pin should be connected to GND. It may also be connected  to a
+ --					valid signal  on the board  (low, high, or toggling)  if that signal
+ --					is required for a different revision of the design.
+ -- GND*          : Unused  I/O  pin. Connect each pin marked GND* directly to GND
+ --           	    or leave it unconnected.
+ -- RESERVED      : Unused I/O pin, which MUST be left unconnected.
+ -- RESERVED_INPUT    : Pin is tri-stated and should be connected to the board.
+ -- RESERVED_INPUT_WITH_WEAK_PULLUP    : Pin is tri-stated with internal weak pull-up resistor.
+ -- RESERVED_INPUT_WITH_BUS_HOLD       : Pin is tri-stated with bus-hold circuitry.
+ -- RESERVED_OUTPUT_DRIVEN_HIGH        : Pin is output driven high.
+ ---------------------------------------------------------------------------------
+
+
+
+ ---------------------------------------------------------------------------------
+ -- Pin directions (input, output or bidir) are based on device operating in user mode.
+ ---------------------------------------------------------------------------------
+
+Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Full Version
+CHIP  "ECTNew"  ASSIGNED TO AN: EP3C25F324C8
+
+Pin Name/Usage               : Location  : Dir.   : I/O Standard      : Voltage : I/O Bank  : User Assignment
+-------------------------------------------------------------------------------------------------------------
+RESERVED_INPUT_WITH_WEAK_PULLUP : A1        :        :                   :         : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : A2        :        :                   :         : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : A3        :        :                   :         : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : A4        :        :                   :         : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : A5        :        :                   :         : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : A6        :        :                   :         : 8         :                
+SwitchCtrl[57]               : A7        : output : 2.5 V             :         : 8         : Y              
+SwitchCtrl[58]               : A8        : output : 2.5 V             :         : 8         : Y              
+GND+                         : A9        :        :                   :         : 8         :                
+GND+                         : A10       :        :                   :         : 7         :                
+SwitchCtrl[55]               : A11       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[43]               : A12       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[47]               : A13       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[32]               : A14       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[36]               : A15       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[24]               : A16       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[26]               : A17       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[28]               : A18       : output : 2.5 V             :         : 7         : Y              
+USBDat[13]                   : B1        : bidir  : 2.5 V             :         : 1         : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : B2        :        :                   :         : 1         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : B3        :        :                   :         : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : B4        :        :                   :         : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : B5        :        :                   :         : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : B6        :        :                   :         : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : B7        :        :                   :         : 8         :                
+SwitchCtrl[59]               : B8        : output : 2.5 V             :         : 8         : Y              
+GND+                         : B9        :        :                   :         : 8         :                
+GND+                         : B10       :        :                   :         : 7         :                
+SwitchCtrl[40]               : B11       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[45]               : B12       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[33]               : B13       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[34]               : B14       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[38]               : B15       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[27]               : B16       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[29]               : B17       : output : 2.5 V             :         : 6         : Y              
+SwitchCtrl[30]               : B18       : output : 2.5 V             :         : 6         : Y              
+USBDat[15]                   : C1        : bidir  : 2.5 V             :         : 1         : Y              
+USBDat[14]                   : C2        : bidir  : 2.5 V             :         : 1         : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : C3        :        :                   :         : 1         :                
+GND                          : C4        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : C5        :        :                   :         : 8         :                
+GND                          : C6        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : C7        :        :                   :         : 8         :                
+GND                          : C8        : gnd    :                   :         :           :                
+SwitchCtrl[63]               : C9        : output : 2.5 V             :         : 8         : Y              
+SwitchCtrl[53]               : C10       : output : 2.5 V             :         : 7         : Y              
+GND                          : C11       : gnd    :                   :         :           :                
+SwitchCtrl[44]               : C12       : output : 2.5 V             :         : 7         : Y              
+GND                          : C13       : gnd    :                   :         :           :                
+SwitchCtrl[37]               : C14       : output : 2.5 V             :         : 7         : Y              
+GND                          : C15       : gnd    :                   :         :           :                
+SwitchCtrl[25]               : C16       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[17]               : C17       : output : 2.5 V             :         : 6         : Y              
+SwitchCtrl[19]               : C18       : output : 2.5 V             :         : 6         : Y              
+~ALTERA_ASDO_DATA1~ / RESERVED_INPUT_WITH_WEAK_PULLUP : D1        : input  : 2.5 V             :         : 1         : N              
+USBDat[12]                   : D2        : bidir  : 2.5 V             :         : 1         : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : D3        :        :                   :         : 1         :                
+VCCIO8                       : D4        : power  :                   : 2.5V    : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : D5        :        :                   :         : 8         :                
+VCCIO8                       : D6        : power  :                   : 2.5V    : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : D7        :        :                   :         : 8         :                
+VCCIO8                       : D8        : power  :                   : 2.5V    : 8         :                
+SwitchCtrl[62]               : D9        : output : 2.5 V             :         : 8         : Y              
+SwitchCtrl[52]               : D10       : output : 2.5 V             :         : 7         : Y              
+VCCIO7                       : D11       : power  :                   : 2.5V    : 7         :                
+SwitchCtrl[46]               : D12       : output : 2.5 V             :         : 7         : Y              
+VCCIO7                       : D13       : power  :                   : 2.5V    : 7         :                
+SwitchCtrl[39]               : D14       : output : 2.5 V             :         : 7         : Y              
+VCCIO7                       : D15       : power  :                   : 2.5V    : 7         :                
+SwitchCtrl[31]               : D16       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[21]               : D17       : output : 2.5 V             :         : 6         : Y              
+SwitchCtrl[23]               : D18       : output : 2.5 V             :         : 6         : Y              
+RstBtn                       : E1        : input  : 2.5 V             :         : 1         : Y              
+~ALTERA_FLASH_nCE_nCSO~ / RESERVED_INPUT_WITH_WEAK_PULLUP : E2        : input  : 2.5 V             :         : 1         : N              
+GND                          : E3        : gnd    :                   :         :           :                
+VCCA3                        : E4        : power  :                   : 2.5V    :           :                
+GNDA3                        : E5        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : E6        :        :                   :         : 8         :                
+SwitchCtrl[56]               : E7        : output : 2.5 V             :         : 8         : Y              
+SwitchCtrl[61]               : E8        : output : 2.5 V             :         : 8         : Y              
+SwitchCtrl[49]               : E9        : output : 2.5 V             :         : 8         : Y              
+SwitchCtrl[51]               : E10       : output : 2.5 V             :         : 8         : Y              
+SwitchCtrl[54]               : E11       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[42]               : E12       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[35]               : E13       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[16]               : E14       : output : 2.5 V             :         : 7         : Y              
+VCCD_PLL2                    : E15       : power  :                   : 1.2V    :           :                
+GND                          : E16       : gnd    :                   :         :           :                
+SwitchCtrl[9]                : E17       : output : 2.5 V             :         : 6         : Y              
+SwitchCtrl[11]               : E18       : output : 2.5 V             :         : 6         : Y              
+GND+                         : F1        :        :                   :         : 1         :                
+GND+                         : F2        :        :                   :         : 1         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : F3        :        :                   :         : 1         :                
+VCCIO1                       : F4        : power  :                   : 2.5V    : 1         :                
+VCCD_PLL3                    : F5        : power  :                   : 1.2V    :           :                
+LED1                         : F6        : output : 2.5 V             :         : 8         : Y              
+LED2                         : F7        : output : 2.5 V             :         : 8         : Y              
+SwitchCtrl[60]               : F8        : output : 2.5 V             :         : 8         : Y              
+SwitchCtrl[48]               : F9        : output : 2.5 V             :         : 8         : Y              
+SwitchCtrl[50]               : F10       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[41]               : F11       : output : 2.5 V             :         : 7         : Y              
+LED4                         : F12       : output : 2.5 V             :         : 7         : Y              
+LED3                         : F13       : output : 2.5 V             :         : 7         : Y              
+VCCA2                        : F14       : power  :                   : 2.5V    :           :                
+GNDA2                        : F15       : gnd    :                   :         :           :                
+VCCIO6                       : F16       : power  :                   : 2.5V    : 6         :                
+GND+                         : F17       :        :                   :         : 6         :                
+GND+                         : F18       :        :                   :         : 6         :                
+USBDat[10]                   : G1        : bidir  : 2.5 V             :         : 1         : Y              
+USBDat[11]                   : G2        : bidir  : 2.5 V             :         : 1         : Y              
+GND                          : G3        : gnd    :                   :         :           :                
+VCCIO1                       : G4        : power  :                   : 2.5V    : 1         :                
+nSTATUS                      : G5        :        :                   :         : 1         :                
+USBSlrd                      : G6        : output : 2.5 V             :         : 8         : Y              
+VCCINT                       : G7        : power  :                   : 1.2V    :           :                
+VCCINT                       : G8        : power  :                   : 1.2V    :           :                
+GND                          : G9        : gnd    :                   :         :           :                
+VCCINT                       : G10       : power  :                   : 1.2V    :           :                
+VCCINT                       : G11       : power  :                   : 1.2V    :           :                
+VCCINT                       : G12       : power  :                   : 1.2V    :           :                
+AD7524Out[7]                 : G13       : output : 2.5 V             :         : 7         : Y              
+SwitchCtrl[18]               : G14       : output : 2.5 V             :         : 6         : Y              
+VCCIO6                       : G15       : power  :                   : 2.5V    : 6         :                
+GND                          : G16       : gnd    :                   :         :           :                
+SwitchCtrl[10]               : G17       : output : 2.5 V             :         : 6         : Y              
+SwitchCtrl[13]               : G18       : output : 2.5 V             :         : 6         : Y              
+USBDat[8]                    : H1        : bidir  : 2.5 V             :         : 1         : Y              
+USBDat[9]                    : H2        : bidir  : 2.5 V             :         : 1         : Y              
+~ALTERA_DATA0~ / RESERVED_INPUT_WITH_WEAK_PULLUP : H3        : input  : 2.5 V             :         : 1         : N              
+~ALTERA_DCLK~                : H4        : output : 2.5 V             :         : 1         : N              
+nCONFIG                      : H5        :        :                   :         : 1         :                
+USBSlwr                      : H6        : output : 2.5 V             :         : 1         : Y              
+VCCINT                       : H7        : power  :                   : 1.2V    :           :                
+GND                          : H8        : gnd    :                   :         :           :                
+GND                          : H9        : gnd    :                   :         :           :                
+GND                          : H10       : gnd    :                   :         :           :                
+GND                          : H11       : gnd    :                   :         :           :                
+VCCINT                       : H12       : power  :                   : 1.2V    :           :                
+AD7524Out[6]                 : H13       : output : 2.5 V             :         : 6         : Y              
+SwitchCtrl[8]                : H14       : output : 2.5 V             :         : 6         : Y              
+SwitchCtrl[20]               : H15       : output : 2.5 V             :         : 6         : Y              
+SwitchCtrl[22]               : H16       : output : 2.5 V             :         : 6         : Y              
+SwitchCtrl[12]               : H17       : output : 2.5 V             :         : 6         : Y              
+SwitchCtrl[14]               : H18       : output : 2.5 V             :         : 6         : Y              
+TCK                          : J1        : input  :                   :         : 1         :                
+TMS                          : J2        : input  :                   :         : 1         :                
+GND                          : J3        : gnd    :                   :         :           :                
+VCCIO1                       : J4        : power  :                   : 2.5V    : 1         :                
+TDO                          : J5        : output :                   :         : 1         :                
+TDI                          : J6        : input  :                   :         : 1         :                
+VCCINT                       : J7        : power  :                   : 1.2V    :           :                
+GND                          : J8        : gnd    :                   :         :           :                
+GND                          : J9        : gnd    :                   :         :           :                
+GND                          : J10       : gnd    :                   :         :           :                
+GND                          : J11       : gnd    :                   :         :           :                
+VCCINT                       : J12       : power  :                   : 1.2V    :           :                
+SwitchCtrl[15]               : J13       : output : 2.5 V             :         : 6         : Y              
+MSEL3                        : J14       :        :                   :         : 6         :                
+VCCIO6                       : J15       : power  :                   : 2.5V    : 6         :                
+GND                          : J16       : gnd    :                   :         :           :                
+MSEL2                        : J17       :        :                   :         : 6         :                
+MSEL1                        : J18       :        :                   :         : 6         :                
+USBFlagD                     : K1        : input  : 2.5 V             :         : 2         : Y              
+PKTEND                       : K2        : output : 2.5 V             :         : 2         : Y              
+GND                          : K3        : gnd    :                   :         :           :                
+VCCIO2                       : K4        : power  :                   : 2.5V    : 2         :                
+FIFOAdr[0]                   : K5        : output : 2.5 V             :         : 2         : Y              
+nCE                          : K6        :        :                   :         : 1         :                
+VCCINT                       : K7        : power  :                   : 1.2V    :           :                
+GND                          : K8        : gnd    :                   :         :           :                
+GND                          : K9        : gnd    :                   :         :           :                
+GND                          : K10       : gnd    :                   :         :           :                
+GND                          : K11       : gnd    :                   :         :           :                
+VCCINT                       : K12       : power  :                   : 1.2V    :           :                
+MSEL0                        : K13       :        :                   :         : 6         :                
+CONF_DONE                    : K14       :        :                   :         : 6         :                
+VCCIO5                       : K15       : power  :                   : 2.5V    : 5         :                
+GND                          : K16       : gnd    :                   :         :           :                
+SwitchCtrl[2]                : K17       : output : 2.5 V             :         : 5         : Y              
+SwitchCtrl[0]                : K18       : output : 2.5 V             :         : 5         : Y              
+FIFOAdr[1]                   : L1        : output : 2.5 V             :         : 2         : Y              
+USBSloe                      : L2        : output : 2.5 V             :         : 2         : Y              
+USBInt0                      : L3        : output : 2.5 V             :         : 2         : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : L4        :        :                   :         : 2         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : L5        :        :                   :         : 2         :                
+FIFOPf                       : L6        : input  : 2.5 V             :         : 2         : Y              
+VCCINT                       : L7        : power  :                   : 1.2V    :           :                
+GND                          : L8        : gnd    :                   :         :           :                
+GND                          : L9        : gnd    :                   :         :           :                
+GND                          : L10       : gnd    :                   :         :           :                
+GND                          : L11       : gnd    :                   :         :           :                
+VCCINT                       : L12       : power  :                   : 1.2V    :           :                
+AD7524Out[5]                 : L13       : output : 2.5 V             :         : 5         : Y              
+SwitchCtrl[1]                : L14       : output : 2.5 V             :         : 5         : Y              
+SwitchCtrl[5]                : L15       : output : 2.5 V             :         : 5         : Y              
+SwitchCtrl[3]                : L16       : output : 2.5 V             :         : 5         : Y              
+SineOut[13]                  : L17       : output : 2.5 V             :         : 5         : Y              
+DDSClk                       : L18       : output : 2.5 V             :         : 5         : Y              
+USBDat[7]                    : M1        : bidir  : 2.5 V             :         : 2         : Y              
+USBDat[6]                    : M2        : bidir  : 2.5 V             :         : 2         : Y              
+FIFOFull                     : M3        : input  : 2.5 V             :         : 2         : Y              
+VCCIO2                       : M4        : power  :                   : 2.5V    : 2         :                
+FIFOEmp                      : M5        : input  : 2.5 V             :         : 2         : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : M6        :        :                   :         : 3         :                
+VCCINT                       : M7        : power  :                   : 1.2V    :           :                
+VCCINT                       : M8        : power  :                   : 1.2V    :           :                
+VCCINT                       : M9        : power  :                   : 1.2V    :           :                
+GND                          : M10       : gnd    :                   :         :           :                
+VCCINT                       : M11       : power  :                   : 1.2V    :           :                
+VCCINT                       : M12       : power  :                   : 1.2V    :           :                
+AD7524Out[4]                 : M13       : output : 2.5 V             :         : 4         : Y              
+SwitchCtrl[4]                : M14       : output : 2.5 V             :         : 5         : Y              
+VCCIO5                       : M15       : power  :                   : 2.5V    : 5         :                
+GND                          : M16       : gnd    :                   :         :           :                
+SineOut[11]                  : M17       : output : 2.5 V             :         : 5         : Y              
+SineOut[12]                  : M18       : output : 2.5 V             :         : 5         : Y              
+GND+                         : N1        :        :                   :         : 2         :                
+inclk0                       : N2        : input  : 2.5 V             :         : 2         : Y              
+GND                          : N3        : gnd    :                   :         :           :                
+VCCIO2                       : N4        : power  :                   : 2.5V    : 2         :                
+VCCA1                        : N5        : power  :                   : 2.5V    :           :                
+AD9240In2[8]                 : N6        : input  : 2.5 V             :         : 3         : Y              
+AD9240In2[7]                 : N7        : input  : 2.5 V             :         : 3         : Y              
+AD9240In2[6]                 : N8        : input  : 2.5 V             :         : 3         : Y              
+AD9240In2[5]                 : N9        : input  : 2.5 V             :         : 3         : Y              
+AD9240In2[4]                 : N10       : input  : 2.5 V             :         : 4         : Y              
+AD9240In2[3]                 : N11       : input  : 2.5 V             :         : 4         : Y              
+AD9240In2[2]                 : N12       : input  : 2.5 V             :         : 4         : Y              
+AD7524Out[3]                 : N13       : output : 2.5 V             :         : 4         : Y              
+VCCA4                        : N14       : power  :                   : 2.5V    :           :                
+SwitchCtrl[6]                : N15       : output : 2.5 V             :         : 5         : Y              
+SwitchCtrl[7]                : N16       : output : 2.5 V             :         : 5         : Y              
+GND+                         : N17       :        :                   :         : 5         :                
+GND+                         : N18       :        :                   :         : 5         :                
+USBDat[5]                    : P1        : bidir  : 2.5 V             :         : 2         : Y              
+USBDat[4]                    : P2        : bidir  : 2.5 V             :         : 2         : Y              
+GND                          : P3        : gnd    :                   :         :           :                
+VCCD_PLL1                    : P4        : power  :                   : 1.2V    :           :                
+GNDA1                        : P5        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : P6        :        :                   :         : 3         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : P7        :        :                   :         : 3         :                
+PGA1[2]                      : P8        : output : 2.5 V             :         : 3         : Y              
+OTR1                         : P9        : input  : 2.5 V             :         : 3         : Y              
+AD9240In1[13]                : P10       : input  : 2.5 V             :         : 4         : Y              
+AD9240In1[12]                : P11       : input  : 2.5 V             :         : 4         : Y              
+AD9240In2[1]                 : P12       : input  : 2.5 V             :         : 4         : Y              
+AD7524Out[2]                 : P13       : output : 2.5 V             :         : 4         : Y              
+GNDA4                        : P14       : gnd    :                   :         :           :                
+VCCD_PLL4                    : P15       : power  :                   : 1.2V    :           :                
+GND                          : P16       : gnd    :                   :         :           :                
+SineOut[9]                   : P17       : output : 2.5 V             :         : 5         : Y              
+SineOut[10]                  : P18       : output : 2.5 V             :         : 5         : Y              
+IFClk                        : R1        : output : 2.5 V             :         : 2         : Y              
+USBDat[0]                    : R2        : bidir  : 2.5 V             :         : 2         : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : R3        :        :                   :         : 2         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : R4        :        :                   :         : 2         :                
+Sync                         : R5        : output : 2.5 V             :         : 2         : Y              
+VCCIO3                       : R6        : power  :                   : 2.5V    : 3         :                
+VCCIO3                       : R7        : power  :                   : 2.5V    : 3         :                
+PGA1[0]                      : R8        : output : 2.5 V             :         : 3         : Y              
+VCCIO3                       : R9        : power  :                   : 2.5V    : 3         :                
+VCCIO4                       : R10       : power  :                   : 2.5V    : 4         :                
+AD9240In1[10]                : R11       : input  : 2.5 V             :         : 4         : Y              
+VCCIO4                       : R12       : power  :                   : 2.5V    : 4         :                
+AD7524Out[0]                 : R13       : output : 2.5 V             :         : 4         : Y              
+VCCIO4                       : R14       : power  :                   : 2.5V    : 4         :                
+VCCIO5                       : R15       : power  :                   : 2.5V    : 5         :                
+AD7524Out[1]                 : R16       : output : 2.5 V             :         : 5         : Y              
+SineOut[7]                   : R17       : output : 2.5 V             :         : 5         : Y              
+SineOut[8]                   : R18       : output : 2.5 V             :         : 5         : Y              
+USBDat[1]                    : T1        : bidir  : 2.5 V             :         : 2         : Y              
+USBDat[2]                    : T2        : bidir  : 2.5 V             :         : 2         : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : T3        :        :                   :         : 2         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : T4        :        :                   :         : 3         :                
+GND                          : T5        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : T6        :        :                   :         : 3         :                
+GND                          : T7        : gnd    :                   :         :           :                
+PGA1[1]                      : T8        : output : 2.5 V             :         : 3         : Y              
+GND                          : T9        : gnd    :                   :         :           :                
+GND                          : T10       : gnd    :                   :         :           :                
+AD9240In1[11]                : T11       : input  : 2.5 V             :         : 4         : Y              
+GND                          : T12       : gnd    :                   :         :           :                
+AD9240In1[9]                 : T13       : input  : 2.5 V             :         : 4         : Y              
+WR                           : T14       : output : 2.5 V             :         : 4         : Y              
+GND                          : T15       : gnd    :                   :         :           :                
+CS                           : T16       : output : 2.5 V             :         : 5         : Y              
+SineOut[5]                   : T17       : output : 2.5 V             :         : 5         : Y              
+SineOut[6]                   : T18       : output : 2.5 V             :         : 5         : Y              
+USBDat[3]                    : U1        : bidir  : 2.5 V             :         : 3         : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : U2        :        :                   :         : 3         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : U3        :        :                   :         : 3         :                
+AD9240In1[8]                 : U4        : input  : 2.5 V             :         : 3         : Y              
+AD9240In1[6]                 : U5        : input  : 2.5 V             :         : 3         : Y              
+AD9240In1[4]                 : U6        : input  : 2.5 V             :         : 3         : Y              
+AD9240In1[2]                 : U7        : input  : 2.5 V             :         : 3         : Y              
+AD9240In1[0]                 : U8        : input  : 2.5 V             :         : 3         : Y              
+GND+                         : U9        :        :                   :         : 3         :                
+GND+                         : U10       :        :                   :         : 4         :                
+PGA2[1]                      : U11       : output : 2.5 V             :         : 4         : Y              
+OTR2                         : U12       : input  : 2.5 V             :         : 4         : Y              
+AD9240In2[12]                : U13       : input  : 2.5 V             :         : 4         : Y              
+AD9240In2[10]                : U14       : input  : 2.5 V             :         : 4         : Y              
+AD9240In2[0]                 : U15       : input  : 2.5 V             :         : 4         : Y              
+SineOut[0]                   : U16       : output : 2.5 V             :         : 4         : Y              
+SineOut[3]                   : U17       : output : 2.5 V             :         : 4         : Y              
+SineOut[4]                   : U18       : output : 2.5 V             :         : 4         : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : V1        :        :                   :         : 3         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : V2        :        :                   :         : 3         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : V3        :        :                   :         : 3         :                
+AD9240In1[7]                 : V4        : input  : 2.5 V             :         : 3         : Y              
+AD9240In1[5]                 : V5        : input  : 2.5 V             :         : 3         : Y              
+AD9240In1[3]                 : V6        : input  : 2.5 V             :         : 3         : Y              
+AD9240In1[1]                 : V7        : input  : 2.5 V             :         : 3         : Y              
+ADCLK1                       : V8        : output : 2.5 V             :         : 3         : Y              
+GND+                         : V9        :        :                   :         : 3         :                
+GND+                         : V10       :        :                   :         : 4         :                
+PGA2[0]                      : V11       : output : 2.5 V             :         : 4         : Y              
+PGA2[2]                      : V12       : output : 2.5 V             :         : 4         : Y              
+AD9240In2[13]                : V13       : input  : 2.5 V             :         : 4         : Y              
+AD9240In2[11]                : V14       : input  : 2.5 V             :         : 4         : Y              
+AD9240In2[9]                 : V15       : input  : 2.5 V             :         : 4         : Y              
+ADCLK2                       : V16       : output : 2.5 V             :         : 4         : Y              
+SineOut[1]                   : V17       : output : 2.5 V             :         : 4         : Y              
+SineOut[2]                   : V18       : output : 2.5 V             :         : 4         : Y              

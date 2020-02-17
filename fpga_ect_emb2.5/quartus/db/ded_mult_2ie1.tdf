@@ -1,0 +1,60 @@
+--alt_ded_mult_y CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" dedicated_multiplier_circuitry="AUTO" device_family="Cyclone III" dsp_block_balancing="Auto" external_stage_counter=7 input_aclr_a="ACLR0" input_aclr_b="ACLR0" input_reg_a="CLOCK0" input_reg_b="CLOCK0" level=1 output_reg="UNREGISTERED" pipeline=0 pipeline_clear="ACLR0" pipeline_reg="UNREGISTERED" representation_a="UNSIGNED" representation_b="SIGNED" sub_dedicated_multiplier_circuitry="YES" width_a=23 width_b=47 aclr clock dataa datab ena result
+--VERSION_BEGIN 13.1 cbx_alt_ded_mult_y 2013:10:23:18:05:48:SJ cbx_cycloneii 2013:10:23:18:05:48:SJ cbx_lpm_add_sub 2013:10:23:18:05:48:SJ cbx_mgl 2013:10:23:18:06:54:SJ cbx_padd 2013:10:23:18:05:48:SJ cbx_parallel_add 2013:10:23:18:05:48:SJ cbx_stratix 2013:10:23:18:05:48:SJ cbx_stratixii 2013:10:23:18:05:48:SJ cbx_util_mgl 2013:10:23:18:05:48:SJ  VERSION_END
+
+
+-- Copyright (C) 1991-2013 Altera Corporation
+--  Your use of Altera Corporation's design tools, logic functions 
+--  and other software and tools, and its AMPP partner logic 
+--  functions, and any output files from any of the foregoing 
+--  (including device programming or simulation files), and any 
+--  associated documentation or information are expressly subject 
+--  to the terms and conditions of the Altera Program License 
+--  Subscription Agreement, Altera MegaCore Function License 
+--  Agreement, or other applicable license agreement, including, 
+--  without limitation, that your use is for the sole purpose of 
+--  programming logic devices manufactured by Altera and sold by 
+--  Altera or its authorized distributors.  Please refer to the 
+--  applicable agreement for further details.
+
+
+FUNCTION ded_mult_jge1 (aclr[3..0], clock[3..0], dataa[4..0], datab[46..0], ena[3..0])
+RETURNS ( result[51..0]);
+FUNCTION ded_mult_7ie1 (aclr[3..0], clock[3..0], dataa[17..0], datab[46..0], ena[3..0])
+RETURNS ( result[64..0]);
+
+--synthesis_resources = dsp_9bit 14 lut 191 
+SUBDESIGN ded_mult_2ie1
+( 
+	aclr[3..0]	:	input;
+	clock[3..0]	:	input;
+	dataa[22..0]	:	input;
+	datab[46..0]	:	input;
+	ena[3..0]	:	input;
+	result[69..0]	:	output;
+) 
+VARIABLE 
+	left_mult : ded_mult_jge1;
+	right_mult : ded_mult_7ie1;
+	substage_adder_dataa[51..0]	:	WIRE;
+	substage_adder_datab[51..0]	:	WIRE;
+	substage_adder_result[51..0]	:	WIRE;
+	extension_bits[4..0]	: WIRE;
+
+BEGIN 
+	left_mult.aclr[] = aclr[];
+	left_mult.clock[] = clock[];
+	left_mult.dataa[4..0] = dataa[22..18];
+	left_mult.datab[] = datab[];
+	left_mult.ena[] = ena[];
+	right_mult.aclr[] = aclr[];
+	right_mult.clock[] = clock[];
+	right_mult.dataa[17..0] = dataa[17..0];
+	right_mult.datab[] = datab[];
+	right_mult.ena[] = ena[];
+	substage_adder_result[] = substage_adder_dataa[] + substage_adder_datab[];
+	substage_adder_dataa[] = left_mult.result[];
+	substage_adder_datab[] = ( ( extension_bits[], right_mult.result[64..18]));
+	extension_bits[4..0] = right_mult.result[64..64];
+	result[] = ( substage_adder_result[], right_mult.result[17..0]);
+END;
+--VALID FILE

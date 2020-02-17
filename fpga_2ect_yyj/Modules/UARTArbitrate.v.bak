@@ -1,0 +1,26 @@
+`timescale 1ns/1ps
+//**************************************************************//
+//**************************************************************//
+//Project Name: Novel ECT Hardware Design
+//
+//Author: Yunjie Yang
+//Create  Date: 16:16 2014-11-15
+//Design  Name: ECTNew
+//Module  Name: DemodCtrl
+//Target Devices: EP3C25F324C8
+//Tool versions: 13.1
+//Descriptions: Digital Demodulation Control.
+//Revision:
+//**************************************************************//
+//**************************************************************//
+
+module UARTArbitrate
+(
+    CLK, RST, Enable, OTR, DataIn, DataOut, OverFlow, DemodReady,
+	 Aclr, ClkMultEn,
+	 SinRef
+);
+    //Parameters
+	 parameter SampNum = 200;  //Sampling numbers for digital demodulation, refer to Cnt to check the upper bound
+	 
+	 //Define

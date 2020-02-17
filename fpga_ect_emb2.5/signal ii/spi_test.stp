@@ -1,0 +1,23 @@
+<session jtag_chain="USB-Blaster [USB-0]" jtag_device="@1: EP3C(10|5)/EP4CE(10|6) (0x020F10DD)" sof_file="../quartus/output_files/ect_ert.sof">
+  <display_tree gui_logging_enabled="1">
+  </display_tree>
+  <mnemonics/>
+  <static_plugin_mnemonics/>
+  <embedded_sof_files>
+  </embedded_sof_files>
+  <global_info>
+    <single attribute="active instance" value="0"/>
+    <single attribute="advanced trigger node widget height" value="415"/>
+    <single attribute="advanced trigger node widget width" value="1530"/>
+    <single attribute="config widget visible" value="1"/>
+    <single attribute="data log widget visible" value="1"/>
+    <single attribute="hierarchy widget height" value="242"/>
+    <single attribute="hierarchy widget visible" value="1"/>
+    <single attribute="instance widget visible" value="1"/>
+    <single attribute="jtag widget visible" value="1"/>
+    <single attribute="sof manager visible" value="1"/>
+    <multi attribute="column width" size="23" value="34,34,228,74,68,70,88,88,98,98,88,88,110,101,101,101,101,101,101,101,101,107,78"/>
+    <multi attribute="frame size" size="2" value="1920,1058"/>
+    <multi attribute="jtag widget size" size="2" value="398,192"/>
+  </global_info>
+</session>

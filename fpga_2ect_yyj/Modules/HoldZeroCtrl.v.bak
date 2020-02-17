@@ -1,0 +1,72 @@
+//**************************************************************//
+//**************************************************************//
+//Project Name: Novel ECT Hardware Design
+//
+//Author: Yunjie Yang
+//Create  Date: 16:16 2014-11-15
+//Design  Name: ECTNew
+//Module  Name: HoldZeroStrategy
+//Target Devices: EP3C25F324C8
+//Tool versions: 13.1
+//Descriptions: This module realizes the holding zero strategy
+//Revision:
+//**************************************************************//
+//**************************************************************//
+
+module HoldZeroCtrl
+(
+    SinIn, SinOut,
+	 Sync,
+	 EnExcit
+);
+    //Parameters
+	 parameter SamplePeriod = 6;  //1 zero, 1 idle, 4 sample, 1 finish (idle)
+	 parameter Zero = 14'b00000000000000;
+	 parameter Original = 14'b11111111111111;
+	 
+	 //Define
+
+	 
+	 //Interface
+	 input [13:0] SinIn;    //Two's comple code
+	 input EnExcit;
+	 
+	 output [13:0] SinOut;  //Original code
+	 output Sync;           //Sync Signal for Holding Zero Strategy
+	 
+	 assign SinOut={~SinIn[13], SinIn[12:0]} | SinOutCtrl; //Change from two's comple to original binary
+	 assign Sync=SinIn[13];
+	 
+	 reg [7:0] periodCnt;
+	 reg [13:0] SinOutCtrl;
+	 
+	 initial begin
+		periodCnt = 8'd0;
+		SinOutCtrl = Zero;
+	 end
+	 
+	 always @ (posedge Sync)
+		if (EnExcit) begin
+			if (periodCnt == 8'd0) begin
+				SinOutCtrl <= Zero;
+			end
+			else begin
+				SinOutCtrl <= Original;
+			end
+			
+			//One switch data finished
+			if (periodCnt == SamplePeriod) begin
+				periodCnt <= 8'd0;
+			end
+			else begin
+				periodCnt <= periodCnt + 8'd1;
+			end
+		end
+		else begin
+			SinOutCtrl <= Zero;
+			periodCnt <= 8'd0;
+		end
+			
+			
+		
+endmodule

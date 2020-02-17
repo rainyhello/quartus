@@ -1,0 +1,3 @@
+v1
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,DigitalDemodulation:b2v_inst9|Altmult_accum0:b2v_inst9|altmult_accum:altmult_accum_component|mult_accum_ojp2:auto_generated|ded_mult_ef81:ded_mult1|mac_out4,
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,DigitalDemodulation:b2v_inst9|Altmult_accum0:b2v_inst|altmult_accum:altmult_accum_component|mult_accum_ojp2:auto_generated|ded_mult_ef81:ded_mult1|mac_out4,

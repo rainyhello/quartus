@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Fri Feb 14 10:48:16 2020
+Quartus II 64-Bit Version : 13.1.0 Build 162 10/23/2013 SJ Full Version
+Revision Name : ECTNew
+Top-level Entity Name : ECTNew
+Family : Cyclone III
+Total logic elements : 2,701
+    Total combinational functions : 2,473
+    Dedicated logic registers : 1,993
+Total registers : 1993
+Total pins : 162
+Total virtual pins : 0
+Total memory bits : 288,867
+Embedded Multiplier 9-bit elements : 4
+Total PLLs : 1

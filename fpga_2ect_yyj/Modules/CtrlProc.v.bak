@@ -1,0 +1,43 @@
+`timescale 1ns/1ps
+//**************************************************************//
+//**************************************************************//
+//Project Name: Novel ECT Hardware Design
+//
+//Author: Yunjie Yang
+//Create  Date: 16:16 2014-11-15
+//Design  Name: ECTNew
+//Module  Name: CtrlProc
+//Target Devices: EP3C25F324C8
+//Tool versions: 13.1
+//Descriptions: This module.
+//Revision:
+//**************************************************************//
+//**************************************************************//
+
+module CtrlProc
+(
+    Clk, Rst, PhaseInc, PhaseMod, FreqMod
+);
+    //Parameters
+	 parameter TrigPrd = 5; //Reset pulse lasting time
+	 
+	 //Define
+	 
+	 
+	 //Interface
+	 input CLK, RstBtn;
+    output TrigOut;        //Global reset pulse
+    
+	 reg TrigOut;
+    reg[15:0] Cnt0, Cnt1;  //Counter reg
+    reg[4:0] Stat;         //States
+    
+    
+    always @( posedge CLK or negedge RstBtn)    // Asynchronous operation
+    begin
+        if( RstBtn==0 )       // One delta t ready
+        begin
+            Cnt0 <= 0;
+            Cnt1 <= 0;
+            Stat <= 0;
+        end

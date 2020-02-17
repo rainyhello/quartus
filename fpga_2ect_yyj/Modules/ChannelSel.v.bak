@@ -1,0 +1,38 @@
+`timescale 1ns/1ps
+//**************************************************************//
+//**************************************************************//
+//Project Name: Novel ECT Hardware Design
+//
+//Author: Yunjie Yang
+//Create  Date: 16:16 2014-11-15
+//Design  Name: ECTNew
+//Module  Name: ChannelSel
+//Target Devices: EP3C25F324C8
+//Tool versions: 13.1
+//Descriptions: Channel Selection.
+//Revision:
+//**************************************************************//
+//**************************************************************//
+
+module ChannelSel
+(
+    ADOtr, DemodEn, Sel, 
+);
+    //Parameters
+
+	 
+	 
+	 //Define
+	 
+	 
+	 //Interface
+	 input DemodEn;               //10 MHz Clk
+	 input DemodResult0, DemodResult1;
+	 output DemodResult;
+	 
+	 input OTR;                   //Overflow flag
+	 input [13:0] DataIn;         //AD9240 sampling data
+    output reg [7:0] SendOut;    //Data for digital demodulation
+	 
+	 input [13:0] SinRef;
+	 input [13:0] CosRef;
